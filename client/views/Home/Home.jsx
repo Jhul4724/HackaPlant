@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Image, View, Platform } from 'react-native';
 import { Button } from 'react-native-paper';
+import { Asset } from 'expo-asset';
 import * as ImagePicker from 'expo-image-picker';
 
 export default function Home({ route, navigation }) {
@@ -25,10 +26,15 @@ export default function Home({ route, navigation }) {
         }
     };
 
+    const logo = Asset.fromModule(require('../../assets/hackaplant-logo.png'));
+
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Button icon="image" mode="contained" onPress={pickImage} style={{ marginBottom: 10 }}>Pick an image from camera roll</Button>
-            <Button icon="camera" mode="contained" onPress={() => navigation.navigate('Camera')}>Click picture</Button>
-        </View>
+
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                {logo && <Image source={logo} style={{width: 400, height: 200}} />}
+                <Button icon="image" mode="contained" onPress={pickImage} style={{ marginBottom: 10 }}>Pick an image from camera roll</Button>
+                <Button icon="camera" mode="contained" onPress={() => navigation.navigate('Camera')}>Click picture</Button>
+            </View>
+
     );
 }
