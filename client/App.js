@@ -33,7 +33,7 @@ export default function App() {
             ),
           }}
           name="Settings"
-          component={TempNavigator} />
+          component={HomeScreenNavigator} />
       </Tab.Navigator>
     </NavigationContainer>
   );

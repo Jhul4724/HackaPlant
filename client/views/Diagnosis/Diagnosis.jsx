@@ -100,8 +100,10 @@ export default function Diagnosis({ route, navigation }) {
                 </Text>
               </Card.Content>
               <Card.Cover source={{ uri: route.params.uri }} />
-              <Chip style={{width:170, margin: 3}}> {"Certainty: " + (plant.suggestions[0].probability*100).toFixed(2) + "%"}</Chip>
-              <Chip style={{width:170, margin:3}}> Status : {disease.health_assessment.is_healthy ? 'healthy' : 'unhealthy'} </Chip> 
+              <View style={{ padding: 10, flexDirection: "row", justifyContent: "space-between"}}>
+                <Chip icon="information" style={{margin:3}}> {"Certainty: " + (plant.suggestions[0].probability*100).toFixed(2) + "%"}</Chip>
+                <Chip icon="sprout" style={{margin:3}}> Status : {disease.health_assessment.is_healthy ? 'healthy' : 'unhealthy'} </Chip> 
+              </View>
             </Card>
           )}
           {disease?.health_assessment?.diseases && (
