@@ -9,6 +9,7 @@ import {
   Provider,
   Text,
   Card,
+  Chip,
 } from "react-native-paper";
 
 export default function Diagnosis({ route, navigation }) {
@@ -25,80 +26,83 @@ export default function Diagnosis({ route, navigation }) {
 
   const getDisease = async () => {
     try {
-        const response = await axios.post('https://api.plant.id/v2/health_assessment', {
-          "api_key": "juBFAqnP7TIFsOFo8qdHiah5fmhXXOAHBhS9Di8vNsdKrvA7WY",
-          "modifiers": ["crops_fast"],
-          "disease_details": ["common_names", "description", "local_name", "treatment"],
-          "images": [route.params.base64],
-      });
+      const response = await axios.post(
+        "https://api.plant.id/v2/health_assessment",
+        {
+          api_key: "juBFAqnP7TIFsOFo8qdHiah5fmhXXOAHBhS9Di8vNsdKrvA7WY",
+          modifiers: ["crops_fast"],
+          disease_details: [
+            "common_names",
+            "description",
+            "local_name",
+            "treatment",
+          ],
+          images: [route.params.base64],
+        }
+      );
+      console.log(response.data);
       return response.data;
-    }
-    catch (error) {
+    } catch (error) {
       console.log(error);
     }
-};
+  };
 
-const getPlant = async () => {
+  const getPlant = async () => {
     try {
-        const response = await axios.post('https://api.plant.id/v2/identify', {
-          "api_key": "juBFAqnP7TIFsOFo8qdHiah5fmhXXOAHBhS9Di8vNsdKrvA7WY",
-          "modifiers": ["crops_fast"],
-          "plant_details": ["common_names", "wiki_description"],
-          "images": [route.params.base64],
+      const response = await axios.post("https://api.plant.id/v2/identify", {
+        api_key: "juBFAqnP7TIFsOFo8qdHiah5fmhXXOAHBhS9Di8vNsdKrvA7WY",
+        modifiers: ["crops_fast"],
+        plant_details: ["common_names", "wiki_description"],
+        images: [route.params.base64],
       });
       return response.data;
-      console.log(response)
-    }
-    catch (error) {
+      console.log(response);
+    } catch (error) {
       console.log(error);
     }
-}; 
+  };
 
   React.useEffect(() => {
     (async () => {
       setLoading(true);
-      // TODO: uncomment this
     //   const disease = await getDisease();
       const plant = await getPlant();
       setLoading(false);
-      if (!plant.is_plant)
-          showDialog();
+      if (!plant.is_plant) showDialog();
       else {
         // console.log(JSON.stringify(disease));
-        console.log(JSON.stringify(plant));
-        //   setDisease(disease);
+        // console.log(JSON.stringify(plant));
+        // setDisease(disease);
         setPlant(plant);
       }
     })();
   }, [route.params]);
 
   if (loading)
-  return(
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-     <ActivityIndicator />
-    </View>
-  )
+    return (
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <ActivityIndicator />
+      </View>
+    );
   else
     return (
       <Provider>
         <View>
-          {disease?.health_assessment?.diseases &&
-            data.health_assessment.diseases.map((disease) => (
+          {/* {disease?.health_assessment?.diseases &&
+            disease.health_assessment.diseases.map((disease) => (
               <Text>{disease.name}</Text>
-            ))}
-        {console.log(plant)}
-           {plant?.suggestions &&
-          <Card>
-            <Card.Cover source={{ uri: route.params.uri }} />
-            <Card.Content>
-              <Text variant="titleLarge"> { plant.suggestions[0].plant_name } </Text>
-            </Card.Content>
-          </Card>}
-          {route.params && (
-            <Image
-              source={{ uri: route.params.uri }}
-              style={{ width: 200, height: 200 }}
-            />
+            ))} */}
+          {console.log(plant)}
+          {plant?.suggestions && (
+            <Card>
+              <Card.Cover source={{ uri: route.params.uri }} />
+              <Card.Content>
+                <Text variant="titleLarge">
+                  {"Plant detected " + plant.suggestions[0].plant_name}
+                </Text>
+              </Card.Content>
+              <Chip> {"Certainty: " + plant.suggestions[0].probability + "%"}</Chip>
+            </Card>
           )}
           <Portal>
             <Dialog visible={visible} onDismiss={hideDialog}>
