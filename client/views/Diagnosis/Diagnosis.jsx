@@ -1,6 +1,7 @@
 import axios from "axios";
 import * as React from "react";
 import { View, Image } from "react-native";
+import { HealthChip } from "../../components/Chips/Chips";
 import {
   ActivityIndicator,
   Button,
@@ -11,6 +12,7 @@ import {
   Card,
   Chip,
 } from "react-native-paper";
+
 
 export default function Diagnosis({ route, navigation }) {
   const [disease, setDisease] = React.useState({});
@@ -29,7 +31,7 @@ export default function Diagnosis({ route, navigation }) {
       const response = await axios.post(
         "https://api.plant.id/v2/health_assessment",
         {
-          api_key: "juBFAqnP7TIFsOFo8qdHiah5fmhXXOAHBhS9Di8vNsdKrvA7WY",
+          api_key: "BAYzqJackSvMaeHu5NnqO2vlhtKlhYvoMmyKf65zFDgF5xBcPN",
           modifiers: ["crops_fast"],
           disease_details: [
             "common_names",
@@ -50,7 +52,7 @@ export default function Diagnosis({ route, navigation }) {
   const getPlant = async () => {
     try {
       const response = await axios.post("https://api.plant.id/v2/identify", {
-        api_key: "juBFAqnP7TIFsOFo8qdHiah5fmhXXOAHBhS9Di8vNsdKrvA7WY",
+        api_key: "BAYzqJackSvMaeHu5NnqO2vlhtKlhYvoMmyKf65zFDgF5xBcPN",
         modifiers: ["crops_fast"],
         plant_details: ["common_names", "wiki_description"],
         images: [route.params.base64],
@@ -62,17 +64,19 @@ export default function Diagnosis({ route, navigation }) {
     }
   };
 
+
+
   React.useEffect(() => {
     (async () => {
       setLoading(true);
-    //   const disease = await getDisease();
+      const disease = await getDisease();
       const plant = await getPlant();
       setLoading(false);
       if (!plant.is_plant) showDialog();
       else {
         // console.log(JSON.stringify(disease));
         // console.log(JSON.stringify(plant));
-        // setDisease(disease);
+        setDisease(disease);
         setPlant(plant);
       }
     })();
@@ -101,7 +105,8 @@ export default function Diagnosis({ route, navigation }) {
                   {"Plant detected " + plant.suggestions[0].plant_name}
                 </Text>
               </Card.Content>
-              <Chip> {"Certainty: " + plant.suggestions[0].probability + "%"}</Chip>
+              <Chip style={{width:130}}> {"Certainty: " + plant.suggestions[0].probability.toFixed(2) + "%"}</Chip>
+              <Chip style={{width:130}}> Status : {disease.health_assessment.is_healthy ? 'healthy' : 'unhealthy'} </Chip> 
             </Card>
           )}
           <Portal>

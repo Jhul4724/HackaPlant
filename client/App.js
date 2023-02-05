@@ -17,7 +17,6 @@ function SettingsScreen() {
 const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
-
   return (
     <NavigationContainer>
       <Tab.Navigator>
