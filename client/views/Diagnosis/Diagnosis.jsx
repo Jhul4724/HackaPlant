@@ -20,7 +20,7 @@ export default function Diagnosis({ route, navigation }) {
         (async () => {
             setLoading(true);
             const response = await axios.post('https://api.plant.id/v2/health_assessment', {
-                "api_key": "juBFAqnP7TIFsOFo8qdHiah5fmhXXOAHBhS9Di8vNsdKrvA7WY",
+                "api_key": "BAYzqJackSvMaeHu5NnqO2vlhtKlhYvoMmyKf65zFDgF5xBcPN",
                 "modifiers": ["crops_fast"],
                 "disease_details": ["common_names", "description", "local_name", "treatment"],
                 "images": [route.params.base64]
