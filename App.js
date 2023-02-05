@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Home from './components/Home/Home';
+import { HomeScreenNavigator } from './components/StackNavigator/StackNavigator';
 
 
 function SettingsScreen() {
@@ -21,12 +21,12 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator>
-        <Tab.Screen name="Home" options={{
+        <Tab.Screen name="HomeTab" options={{
           tabBarLabel: 'Home', tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="home" color={color} size={26} />
           ),
         }}
-          component={Home} />
+          component={HomeScreenNavigator} />
         <Tab.Screen
           options={{
             tabBarLabel: 'Settings', tabBarIcon: ({ color }) => (

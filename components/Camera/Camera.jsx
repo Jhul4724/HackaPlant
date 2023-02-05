@@ -1,8 +1,12 @@
 import { Camera, CameraType } from 'expo-camera';
-import { useState } from 'react';
-import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useRef, useState } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Button } from 'react-native-paper';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default function CameraComponent() {
+
+export default function CameraComponent({ navigation }) {
+    const cameraRef = useRef(null);
     const [type, setType] = useState(CameraType.back);
     const [permission, requestPermission] = Camera.useCameraPermissions();
 
@@ -16,21 +20,28 @@ export default function CameraComponent() {
         return (
             <>
                 <Text style={{ textAlign: 'center' }}>We need your permission to show the camera</Text>
-                <Button onPress={requestPermission} title="grant permission" />
+                <Button mode="contained" onPress={requestPermission} title="grant permission" />
             </>
         );
     }
 
-    function toggleCameraType() {
+    const toggleCameraType = () => {
         setType(current => (current === CameraType.back ? CameraType.front : CameraType.back));
+    }
+
+    const takePicture = async () => {
+        if (cameraRef.current) {
+            const data = await cameraRef.current.takePictureAsync({ base64: true });
+            navigation.navigate('Diagnosis', { base64: data.base64 });
+        }
     }
 
     return (
         <View style={styles.container}>
-            <Camera style={styles.camera} type={type}>
+            <Camera ref={cameraRef} style={styles.camera} type={type}>
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.button} onPress={toggleCameraType}>
-                        <Text style={styles.text}>Flip Camera</Text>
+                    <TouchableOpacity style={styles.button} onPress={takePicture}>
+                        <MaterialCommunityIcons name="camera-iris" color={"#fff"} size={70} />
                     </TouchableOpacity>
                 </View>
             </Camera>
@@ -49,11 +60,12 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flex: 1,
         flexDirection: 'row',
+        justifyContent: "center",
         backgroundColor: 'transparent',
         margin: 64,
     },
     button: {
-        flex: 1,
+        // flex: 1,
         alignSelf: 'flex-end',
         alignItems: 'center',
     },
