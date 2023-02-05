@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { HomeScreenNavigator } from './components/StackNavigator/StackNavigator';
+import { HomeScreenNavigator, TempNavigator } from './components/StackNavigator/StackNavigator';
 
 
 function SettingsScreen() {
@@ -33,7 +33,7 @@ export default function App() {
             ),
           }}
           name="Settings"
-          component={SettingsScreen} />
+          component={TempNavigator} />
       </Tab.Navigator>
     </NavigationContainer>
   );
