@@ -4,7 +4,6 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Button } from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-
 export default function CameraComponent({ navigation }) {
     const cameraRef = useRef(null);
     const [type, setType] = useState(CameraType.back);
@@ -32,7 +31,7 @@ export default function CameraComponent({ navigation }) {
     const takePicture = async () => {
         if (cameraRef.current) {
             const data = await cameraRef.current.takePictureAsync({ base64: true });
-            navigation.navigate('Diagnosis', { base64: data.base64 });
+            navigation.navigate('Diagnosis', { base64: data.base64, uri: data.uri });
         }
     }
 

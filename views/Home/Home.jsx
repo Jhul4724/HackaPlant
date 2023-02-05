@@ -17,12 +17,11 @@ export default function Home({ route, navigation }) {
             allowsEditing: true,
             aspect: [4, 3],
             quality: 1,
+            base64: true
         });
 
-        console.log(result);
-
         if (!result.canceled) {
-            setImage(result.assets[0].uri);
+            navigation.navigate("Diagnosis", { base64: result.assets[0].base64, uri: result.assets[0].uri });
         }
     };
 
@@ -30,7 +29,6 @@ export default function Home({ route, navigation }) {
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             <Button icon="image" mode="contained" onPress={pickImage} style={{ marginBottom: 10 }}>Pick an image from camera roll</Button>
             <Button icon="camera" mode="contained" onPress={() => navigation.navigate('Camera')}>Click picture</Button>
-            {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
         </View>
     );
 }
