@@ -1,7 +1,6 @@
 import axios from "axios";
 import * as React from "react";
-import { View, Image } from "react-native";
-import { HealthChip } from "../../components/Chips/Chips";
+import { View, Image, ScrollView } from "react-native";
 import {
   ActivityIndicator,
   Button,
@@ -12,6 +11,7 @@ import {
   Card,
   Chip,
 } from "react-native-paper";
+import { DiseasesList } from "../../components/DiseasesList/DiseasesList";
 
 
 export default function Diagnosis({ route, navigation }) {
@@ -91,12 +91,7 @@ export default function Diagnosis({ route, navigation }) {
   else
     return (
       <Provider>
-        <View>
-          {/* {disease?.health_assessment?.diseases &&
-            disease.health_assessment.diseases.map((disease) => (
-              <Text>{disease.name}</Text>
-            ))} */}
-          {console.log(plant)}
+        <ScrollView style={{ padding: 10 }}>
           {plant?.suggestions && (
             <Card>
               <Card.Content>
@@ -105,9 +100,12 @@ export default function Diagnosis({ route, navigation }) {
                 </Text>
               </Card.Content>
               <Card.Cover source={{ uri: route.params.uri }} />
-              <Chip style={{width:170}}> {"Certainty: " + plant.suggestions[0].probability.toFixed(2) + "%"}</Chip>
-              <Chip style={{width:170}}> Status : {disease.health_assessment.is_healthy ? 'healthy' : 'unhealthy'} </Chip> 
+              <Chip style={{width:170, margin: 3}}> {"Certainty: " + plant.suggestions[0].probability.toFixed(2) + "%"}</Chip>
+              <Chip style={{width:170, margin:3}}> Status : {disease.health_assessment.is_healthy ? 'healthy' : 'unhealthy'} </Chip> 
             </Card>
+          )}
+          {disease?.health_assessment?.diseases && (
+            <DiseasesList arr={disease.health_assessment.diseases}></DiseasesList>
           )}
           <Portal>
             <Dialog visible={visible} onDismiss={hideDialog}>
@@ -123,7 +121,7 @@ export default function Diagnosis({ route, navigation }) {
               </Dialog.Actions>
             </Dialog>
           </Portal>
-        </View>
+        </ScrollView>
       </Provider>
     );
 }
