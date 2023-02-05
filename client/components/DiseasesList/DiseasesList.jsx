@@ -5,7 +5,7 @@ function DiseaseCard({ disease }) {
         <Card style={{marginTop:5}}>
             <Card.Content>
                 <Text variant="titleLarge">{disease.name}</Text>
-                <Chip style={{width:170}}> Probability : {disease.probability.toFixed(2)}% </Chip>
+                <Chip style={{width:205}}> Probability : {(disease.probability * 100).toFixed(2)}% </Chip>
                 <Text>{disease.disease_details?.description}</Text>
             </Card.Content>
         </Card>
