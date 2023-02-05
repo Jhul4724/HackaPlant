@@ -29,7 +29,6 @@ export default function Diagnosis({ route, navigation }) {
             if (!response.data.is_plant)
                 showDialog();
             else {
-                console.log(JSON.stringify(response.data));
                 setData(response.data);
             }
         })()
@@ -40,7 +39,7 @@ export default function Diagnosis({ route, navigation }) {
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 {loading ? <ActivityIndicator /> :
                     <>
-                        {data.diseases && data.diseases.map(disease => <Text>{disease.name}</Text>)}
+                        {data.health_assessment && data.health_assessment.diseases.map((disease, i) => (<Text key={i}>{disease.name}</Text>))}
                         {route.params && <Image source={{ uri: route.params.uri }} style={{ width: 200, height: 200 }} />}
                         <Portal>
                             <Dialog visible={visible} onDismiss={hideDialog}>

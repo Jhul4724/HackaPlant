@@ -3,8 +3,7 @@ import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { HomeScreenNavigator } from './components/StackNavigator/StackNavigator';
-
+import { HomeScreenNavigator, TempNavigator } from './components/StackNavigator/StackNavigator';
 
 function SettingsScreen() {
   return (
@@ -33,8 +32,8 @@ export default function App() {
               <MaterialCommunityIcons name="cogs" color={color} size={26} />
             ),
           }}
-          name="Settings"
-          component={SettingsScreen} />
+          name="SettingsTab"
+          component={TempNavigator} />
       </Tab.Navigator>
     </NavigationContainer>
   );
