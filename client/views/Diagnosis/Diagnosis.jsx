@@ -31,7 +31,7 @@ export default function Diagnosis({ route, navigation }) {
             const response = await axios.post(
                 "https://api.plant.id/v2/health_assessment",
                 {
-                    api_key: "BAYzqJackSvMaeHu5NnqO2vlhtKlhYvoMmyKf65zFDgF5xBcPN",
+                    api_key: "X9kKTRO9pa5KXhqVsuiiuxl0aj7pEfT1tcGV0fPCBO1CTAEQf1",
                     modifiers: ["crops_fast"],
                     disease_details: [
                         "common_names",
@@ -52,7 +52,7 @@ export default function Diagnosis({ route, navigation }) {
     const getPlant = async () => {
         try {
             const response = await axios.post("https://api.plant.id/v2/identify", {
-                api_key: "BAYzqJackSvMaeHu5NnqO2vlhtKlhYvoMmyKf65zFDgF5xBcPN",
+                api_key: "X9kKTRO9pa5KXhqVsuiiuxl0aj7pEfT1tcGV0fPCBO1CTAEQf1",
                 modifiers: ["crops_fast"],
                 plant_details: ["common_names", "wiki_description"],
                 images: [route.params.base64],
@@ -95,7 +95,7 @@ export default function Diagnosis({ route, navigation }) {
           {plant?.suggestions && (
             <Card>
               <Card.Content>
-                <Text variant="titleLarge">
+                <Text variant="titleLarge" style={{fontWeight:"bold"}}>
                   {"Plant detected : \n" + plant.suggestions[0].plant_name}
                 </Text>
               </Card.Content>

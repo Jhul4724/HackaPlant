@@ -5,8 +5,8 @@ import Data from "./response.json";
 import { List, MD3Colors } from 'react-native-paper';
 
 
-export default function DiseaseDetails() {
-    const disease = Data.health_assessment.diseases[0];
+export default function DiseaseDetails({route}) {
+    const disease = route.params.disease;
     return (
         <>
             <View style={{ padding: 10, flexDirection: "row", justifyContent: "space-between", flexWrap: true }}>
@@ -22,18 +22,21 @@ export default function DiseaseDetails() {
                 </Card>
                 <Text variant='titleLarge' style={{ fontWeight: "bold", marginTop: 15 }}>Treatments</Text>
                 <ScrollView>
+                    {disease.disease_details.treatment?.biological &&
                     <Card style={{ margin: 5, padding: 5 }}>
                         <Card.Title titleStyle={{ fontWeight: "bold" }} title="Biological" />
                         <Card.Content>{disease.disease_details.treatment.biological.map((desc, i) => <List.Item style={{ paddingHorizontal: 5 }} descriptionNumberOfLines={5} description={desc} left={() => <List.Icon icon={`numeric-${i > 9 ? '9-plus' : i + 1}-circle`} />} />)}</Card.Content>
-                    </Card>
+                    </Card>}
+                    {disease.disease_details.treatment?.chemical &&
                     <Card style={{ margin: 5, padding: 5 }}>
                         <Card.Title titleStyle={{ fontWeight: "bold" }} title="Chemical" />
                         <Card.Content>{disease.disease_details.treatment.chemical.map((desc, i) => <List.Item style={{ paddingHorizontal: 5 }} descriptionNumberOfLines={5} description={desc} left={() => <List.Icon icon={`numeric-${i > 9 ? '9-plus' : i + 1}-circle`} />} />)}</Card.Content>
-                    </Card>
+                    </Card>}
+                    {disease.disease_details.treatment?.prevention &&
                     <Card style={{ margin: 5, padding: 5 }}>
                         <Card.Title titleStyle={{ fontWeight: "bold" }} title="Prevention" />
                         <Card.Content>{disease.disease_details.treatment.prevention.map((desc, i) => <List.Item style={{ paddingHorizontal: 5 }} descriptionNumberOfLines={5} description={desc} left={() => <List.Icon icon={`numeric-${i > 9 ? '9-plus' : i + 1}-circle`} />} />)}</Card.Content>
-                    </Card>
+                    </Card>}
                 </ScrollView>
 
             </View>
