@@ -99,14 +99,14 @@ export default function Diagnosis({ route, navigation }) {
           {console.log(plant)}
           {plant?.suggestions && (
             <Card>
-              <Card.Cover source={{ uri: route.params.uri }} />
               <Card.Content>
                 <Text variant="titleLarge">
-                  {"Plant detected " + plant.suggestions[0].plant_name}
+                  {"Plant detected : \n" + plant.suggestions[0].plant_name}
                 </Text>
               </Card.Content>
-              <Chip style={{width:130}}> {"Certainty: " + plant.suggestions[0].probability.toFixed(2) + "%"}</Chip>
-              <Chip style={{width:130}}> Status : {disease.health_assessment.is_healthy ? 'healthy' : 'unhealthy'} </Chip> 
+              <Card.Cover source={{ uri: route.params.uri }} />
+              <Chip style={{width:170}}> {"Certainty: " + plant.suggestions[0].probability.toFixed(2) + "%"}</Chip>
+              <Chip style={{width:170}}> Status : {disease.health_assessment.is_healthy ? 'healthy' : 'unhealthy'} </Chip> 
             </Card>
           )}
           <Portal>
