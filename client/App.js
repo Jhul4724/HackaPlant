@@ -28,8 +28,8 @@ export default function App() {
           component={HomeScreenNavigator} />
         <Tab.Screen
           options={{
-            tabBarLabel: 'Settings', tabBarIcon: ({ color }) => (
-              <MaterialCommunityIcons name="cogs" color={color} size={26} />
+            tabBarLabel: 'Updates', tabBarIcon: ({ color }) => (
+              <MaterialCommunityIcons name="update" color={color} size={26} />
             ),
           }}
           name="Settings"

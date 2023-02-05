@@ -12,9 +12,10 @@ app.use(express.urlencoded({ extended: false }));
 
 
 app.post('/upload', upload.single('image'), (req, res) => {
-    storage.bucket().file(req.file.originalname).save(req.file.buffer);
-    database.ref('uploads').push(req.file.originalname);
-    res.send({ file: req.file.originalname });
+    const timestamp = `${new Date().getTime()}.${req.file.mimetype.split('/')[1]}`;
+    storage.bucket().file(timestamp).save(req.file.buffer);
+    database.ref('uploads').push(timestamp);
+    res.send({ file: timestamp });
 })
 
 app.post('/interval', (req, res) => {
