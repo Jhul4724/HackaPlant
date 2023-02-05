@@ -15,7 +15,7 @@ function DiseaseCard({ disease }) {
 export function DiseasesList({arr}) {
     return (
         <>
-            {console.log(typeof(arr))}
+            <Text variant="titleLarge"> Possible diseases :</Text>
             {arr.map((disease) => {
                 if(disease.probability > 0.1)
                 return <DiseaseCard disease={disease} />;
