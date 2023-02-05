@@ -17,4 +17,9 @@ app.post('/upload', upload.single('image'), (req, res) => {
     res.send({ file: req.file.originalname });
 })
 
+app.post('/interval', (req, res) => {
+    database.ref('interval').set(req.body.interval);
+    res.send("Interval set successfully");
+})
+
 app.listen(8080, () => console.log("Server listening on port 8080"));
