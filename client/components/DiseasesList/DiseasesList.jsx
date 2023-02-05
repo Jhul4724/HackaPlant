@@ -1,5 +1,6 @@
 import { Card, Chip, Text, Button } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
+import { View } from "react-native";
 
 
 function DiseaseCard({ disease }) {
@@ -7,8 +8,10 @@ function DiseaseCard({ disease }) {
     return (
         <Card style={{marginTop:5}}>
             <Card.Content>
+                <View style={{ padding: 10, flexDirection: "row", justifyContent: "space-between", flexWrap: true }}>
                 <Text variant="titleLarge" style={{fontWeight:"bold"}}>{disease.name}</Text>
                 <Chip style={{width:205}}> Probability : {(disease.probability * 100).toFixed(2)}% </Chip>
+                </View>
                 <Text>{disease.disease_details?.description}</Text>
             </Card.Content>
             <Card.Actions>
