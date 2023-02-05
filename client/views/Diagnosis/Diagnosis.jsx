@@ -1,4 +1,5 @@
 import axios from "axios";
+import { push, ref } from "firebase/database";
 import * as React from "react";
 import { View, Image, ScrollView } from "react-native";
 import {
@@ -12,6 +13,8 @@ import {
   Chip,
 } from "react-native-paper";
 import { DiseasesList } from "../../components/DiseasesList/DiseasesList";
+import { database, storage } from "../../firebase";
+import { getDisease, getPlant } from "../../utils";
 
 
 export default function Diagnosis({ route, navigation }) {
@@ -26,55 +29,17 @@ export default function Diagnosis({ route, navigation }) {
     navigation.navigate("Home");
   };
 
-  const getDisease = async () => {
-    try {
-      const response = await axios.post(
-        "https://api.plant.id/v2/health_assessment",
-        {
-          api_key: "X9kKTRO9pa5KXhqVsuiiuxl0aj7pEfT1tcGV0fPCBO1CTAEQf1",
-          modifiers: ["crops_fast"],
-          disease_details: [
-            "common_names",
-            "description",
-            "local_name",
-            "treatment",
-          ],
-          images: [route.params.base64],
-        }
-      );
-      return response.data;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getPlant = async () => {
-    try {
-      const response = await axios.post("https://api.plant.id/v2/identify", {
-        api_key: "X9kKTRO9pa5KXhqVsuiiuxl0aj7pEfT1tcGV0fPCBO1CTAEQf1",
-        modifiers: ["crops_fast"],
-        plant_details: ["common_names", "wiki_description"],
-        images: [route.params.base64],
-      });
-      return response.data;
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
 
 
   React.useEffect(() => {
     (async () => {
       setLoading(true);
-      const disease = await getDisease();
-      const plant = await getPlant();
+      const disease = await getDisease(route.params.base64);
+      const plant = await getPlant(route.params.base64);
+      push(ref(database, 'analyses'), { plant: plant, disease: disease });
       setLoading(false);
       if (!plant.is_plant) showDialog();
       else {
-        // console.log(JSON.stringify(disease));
-        // console.log(JSON.stringify(plant));
         setDisease(disease);
         setPlant(plant);
       }

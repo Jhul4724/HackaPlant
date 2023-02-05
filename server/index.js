@@ -12,9 +12,8 @@ app.use(express.urlencoded({ extended: false }));
 
 
 app.post('/upload', upload.single('image'), (req, res) => {
-    const timestamp = `${new Date().getTime()}.${req.file.mimetype.split('/')[1]}`;
-    storage.bucket().file(timestamp).save(req.file.buffer);
-    database.ref('uploads').push(timestamp);
+    const timestamp = `${new Date().getTime()}.jpg`;
+    storage.bucket().file(timestamp).save(req.file.buffer).then(res => { database.ref('uploads').push(timestamp) });
     res.send({ file: timestamp });
 })
 
