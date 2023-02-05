@@ -10,6 +10,7 @@ const HomeScreenNavigator = () => {
         <Stack.Navigator >
             <Stack.Screen
                 name="Home"
+                // TODO: change this to Home
                 component={Home}
             />
             <Stack.Screen
