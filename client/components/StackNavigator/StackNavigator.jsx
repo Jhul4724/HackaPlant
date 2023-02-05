@@ -1,6 +1,5 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import Diagnosis from "../../views/Diagnosis/Diagnosis";
-import DiseaseDetails from "../../views/DiseaseDetails/DiseaseDetails";
 import Home from "../../views/Home/Home";
 import CameraComponent from "../Camera/Camera";
 
@@ -11,6 +10,7 @@ const HomeScreenNavigator = () => {
         <Stack.Navigator >
             <Stack.Screen
                 name="Home"
+                // TODO: change this to Home
                 component={Home}
             />
             <Stack.Screen
@@ -26,16 +26,3 @@ const HomeScreenNavigator = () => {
 }
 
 export { HomeScreenNavigator };
-
-const TempNavigator = () => {
-    return (
-        <Stack.Navigator >
-            <Stack.Screen
-                name="Disease Details"
-                component={DiseaseDetails}
-            />
-        </Stack.Navigator>
-    )
-}
-
-export { TempNavigator };
